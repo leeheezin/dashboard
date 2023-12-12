@@ -1,95 +1,37 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import { useDispatch, useSelector } from "react-redux";
+import { decrement,increment } from "./actions";
+import { RootState } from './reducers';
+import { CounterState } from './reducers/counter'
+import Link from "next/link";
 
-export default function Home() {
+//빈칸 인풋창에 할일 입력, 날짜 지정(지정안하면 날짜없이 저장)
+//추가 버튼 클릭시 투두아이템 추가
+//삭제 버튼 클릭시 삭제
+//전체 삭제
+//체크기능, 로컬스토리지 데이터 불러오기,삭제,초기화
+// TodoList 구현
+// TodoList.tsx 컴포넌트를 만들어서 할 일 목록을 표시하고, 각 항목에 대한 조작을 처리합니다.
+
+// TodoItem 구현
+// TodoItem.tsx 컴포넌트를 만들어서 각 할 일 항목에 대한 표현과 완료 여부를 토글하는 등의 기능을 처리합니다.
+
+export default function Page() {
+  const co:CounterState = useSelector((state:RootState)=> state.counter);
+  const dispatch = useDispatch()
+  
+  const plusCount = () => {
+    dispatch(increment())
+  }
+  const minusCount = () => {
+    dispatch(decrement())
+  }
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    <main>
+      count : {co.count}
+      <button onClick={plusCount}>+</button>
+      <button onClick={minusCount}>-</button>
+      <Link href="/todo">todo</Link>
     </main>
   )
 }
