@@ -5,12 +5,13 @@ import { auth, signInWithPassword } from "../lib/firebase";
 import { useRouter } from "next/navigation";
 import Todo from "../todo/page";
 import { User as FirebaseUser, onAuthStateChanged, signOut } from 'firebase/auth';
+import Link from "next/link";
 
 interface User {
   uid: string;
   email: string;
 }
-export default function Login() {
+const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [user, setUser] = useState<User | null>(null);
@@ -35,6 +36,7 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const loggedInUser: FirebaseUser = await signInWithPassword(email, password);
+      router.push('/')
     } catch (error) {
       console.error("로그인 에러:", error);
     }
@@ -65,3 +67,4 @@ export default function Login() {
     </>
   );
 }
+export default Login

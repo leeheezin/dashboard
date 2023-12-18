@@ -20,7 +20,6 @@ interface Todo {
     
     case 'REMOVE_TODO':
             return state.filter((todo) => todo.uid !== action.payload.uid);
-
       default:
         return state;
     }
